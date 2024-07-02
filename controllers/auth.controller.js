@@ -8,8 +8,8 @@ exports.registerAdmin = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body
     const hash = await bcrypt.hash(password, 10)
     const found = await Admin.findOne({ email })
-    if (!found) {
-        return res.status(401).json({ message: "Email already Registered" })
+    if (found) {
+        return res.status(401).json({ message:  "Admin Email already Registered" })
     }
     await Admin.create({ name, email, password: hash })
     res.json({ message: "Admin Register Success" })
@@ -28,6 +28,7 @@ exports.loginAdmin = asyncHandler(async (req, res) => {
 
     token = JWT.sign({ adminId: result._id }, process.env.JWT_KEY)
     res.cookie("admin", token, { httpOnly: true })
+    console.log(result);
     res.json({
         message: "Admin Login Success", result: {
             _id: result._id,
@@ -47,7 +48,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
     const hash = await bcrypt.hash(password, 10)
     const found = await User.findOne({ email })
     if (found) {
-        return res.status(401).json({ message: "Email Already Registered" })
+        return res.status(401).json({ message: "User Email Already Registered" })
     }
     await User.create({ name, email, password: hash })
     res.json({ message: "User Register Success" })
