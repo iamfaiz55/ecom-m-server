@@ -69,6 +69,10 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
     res.json({ message: "Order cancel Success" })
 })
 exports.updateOrderStatus = asyncHandler(async (req, res) => {
+    const {id}= req.params
+     const {status} = req.body
+     await Order.findByIdAndUpdate(id, {status})
+
     res.json({ message: "Order status update Success" })
 })
 
@@ -81,6 +85,7 @@ exports.getUserDetails = asyncHandler(async (req, res) => {
     res.json({ message: "User Details Fetch Success" })
 })
 exports.blockUsers = asyncHandler(async (req, res) => {
+
     res.json({ message: "User Block Success" })
 })
 exports.unBlockUsers = asyncHandler(async (req, res) => {

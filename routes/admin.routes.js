@@ -15,7 +15,7 @@ router
     .get("/orders", adminController.getAllOrder)
     .get("/orders-details/:orderDetailId", adminController.getOrderDetails)
     .put("/cancel-order/:cancelOrderId", adminController.cancelOrder)
-    .put("/update-order-status/:orderStatusId", adminController.updateOrderStatus)
+    .put("/update-order-status/:id", adminController.updateOrderStatus)
 
     //user
     .get("/users", adminController.getAllUsers)
