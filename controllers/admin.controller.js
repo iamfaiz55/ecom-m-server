@@ -34,7 +34,7 @@ exports.adminUpdateProduct = asyncHandler(async (req, res) => {
     await Product.findByIdAndUpdate(updateId, req.body)
     res.json({ message: "Product Update Success" })
 })
- b    
+  
 exports.deactivateProduct = asyncHandler(async (req, res) => {
     const { deactiveId } = req.params
     await Product.findByIdAndUpdate(deactiveId, { active: false })
