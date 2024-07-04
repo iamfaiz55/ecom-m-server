@@ -34,7 +34,16 @@ exports.adminUpdateProduct = asyncHandler(async (req, res) => {
     await Product.findByIdAndUpdate(updateId, req.body)
     res.json({ message: "Product Update Success" })
 })
-  
+exports.adminDeleteProduct = asyncHandler(async (req, res) => {
+    const { deleteId } = req.params
+    const result = await Product.findById(deleteId)
+    const str = result.images.split("/")
+    const img = str[str.length - 1].split(".")[0]
+    await cloudinary.uploader.destroy(img)
+    await Product.findByIdAndDelete(deleteId)
+    res.json({ message: "Product Delete Success" })
+})  
+
 exports.deactivateProduct = asyncHandler(async (req, res) => {
     const { deactiveId } = req.params
     await Product.findByIdAndUpdate(deactiveId, { active: false })
