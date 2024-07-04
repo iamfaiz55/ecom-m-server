@@ -65,6 +65,10 @@ exports.loginUser = asyncHandler(async (req, res) => {
         res.json("Password Not Verify")
     }
 
+    if(!result.active){
+        return res.status(401).json({message:"Your account Was Blocked By Admin"})
+    }
+
     token = JWT.sign({ userId: result._id }, process.env.JWT_KEY)
     res.cookie("user", token, { httpOnly: true })
     res.json({

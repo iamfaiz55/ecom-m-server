@@ -20,8 +20,8 @@ router
     //user
     .get("/users", adminController.getAllUsers)
     .get("/user-details/:userDetailsId", adminController.getUserDetails)
-    .put("/block-user/:userBlockId", adminController.blockUsers)
-    .put("/unblock-user/:userUnlockId", adminController.unBlockUsers)
+    .put("/block-user/:blockId", adminController.blockUsers)
+    .put("/unblock-user/:unblockId", adminController.unBlockUsers)
     .get("/user-order/:userOrderId", adminController.getUserOrders)
     // .get("/all-users/", adminController.getAllUsers)
 
