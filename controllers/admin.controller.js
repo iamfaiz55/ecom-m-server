@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const Product = require("../models/Product")
 const { upload } = require("../utils/upload")
 const Order = require("../models/Order")
+const User = require("../models/User")
 const cloudinary = require("cloudinary").v2
 
 cloudinary.config({
@@ -33,15 +34,7 @@ exports.adminUpdateProduct = asyncHandler(async (req, res) => {
     await Product.findByIdAndUpdate(updateId, req.body)
     res.json({ message: "Product Update Success" })
 })
-exports.adminDeleteProduct = asyncHandler(async (req, res) => {
-    const { deleteId } = req.params
-    const result = await Product.findById(deleteId)
-    const str = result.images.split("/")
-    const img = str[str.length - 1].split(".")[0]
-    await cloudinary.uploader.destroy(img)
-    await Product.findByIdAndDelete(deleteId)
-    res.json({ message: "Product Delete Success" })
-})
+ b    
 exports.deactivateProduct = asyncHandler(async (req, res) => {
     const { deactiveId } = req.params
     await Product.findByIdAndUpdate(deactiveId, { active: false })
@@ -78,9 +71,7 @@ exports.updateOrderStatus = asyncHandler(async (req, res) => {
 
 
 // user
-exports.getAllUsers = asyncHandler(async (req, res) => {
-    res.json({ message: "User Fetch Success" })
-})
+
 exports.getUserDetails = asyncHandler(async (req, res) => {
     res.json({ message: "User Details Fetch Success" })
 })
@@ -93,4 +84,8 @@ exports.unBlockUsers = asyncHandler(async (req, res) => {
 })
 exports.getUserOrders = asyncHandler(async (req, res) => {
     res.json({ message: "User Order Fetch Success" })
+})
+exports.getAllUsers = asyncHandler(async (req, res) => {
+    const result = await User.find()
+    res.json({ message: "All Users Fetch Success" , result})
 })

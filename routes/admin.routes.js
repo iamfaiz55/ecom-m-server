@@ -23,5 +23,6 @@ router
     .put("/block-user/:userBlockId", adminController.blockUsers)
     .put("/unblock-user/:userUnlockId", adminController.unBlockUsers)
     .get("/user-order/:userOrderId", adminController.getUserOrders)
+    // .get("/all-users/", adminController.getAllUsers)
 
 module.exports = router
